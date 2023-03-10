@@ -1,25 +1,31 @@
-# Documentation depuis les tests
+# TP 3 - Qualité de développement
 
+## Documentation à partir des tests
+
+### Objectifs des tests
 Les tests d'un projet visent 3 objectifs :
 
 * La documentation fonctionnelle du projet
 * La non régression
 * Faire émerger le code
 
+### Comment générer la documentation à partir des tests
 Il existe différentes façons d'utiliser les tests pour documenter un projet.·
 
-* Utiliser des noms de méthode explicite évoquant avec précision les différentes règles métier.
-* Construire un DSL de test avec le vocabulaire du métier.
-* Utiliser du Gherkin pour décrire les scénarios de tests
-* Générer des fichiers structurés de documentation depuis les tests
+* Utiliser des **noms de méthode explicite** évoquant avec précision les différentes règles métier.
+* **Construire un Domain Specific Language** (DSL) de test avec le vocabulaire du métier.
+* Utiliser du **Gherkin pour décrire les scénarios** de tests
+* **Générer des fichiers structurés** de documentation depuis les tests
 
-Dans le [TP2](../tp2/) nous avons testé la dernière option, dans ce TP nous allons utiliser du Gherkin.
+### Retour sur le TP 2
 
-# Du Gherkin
+Dans le [TP2](../tp2/) nous avons testé la dernière option, dans ce TP nous allons utiliser du **Gherkin**.
 
-## Ajout de la dépendance
+## Gherkin
 
-Dans le fichier `pom.xml` ajouter le gestionaire de dépendances vers cucumber.
+### Ajout de la dépendance
+
+Dans le fichier `pom.xml` ajouter la dépendence vers cucumber.
 
 ```xml
 
@@ -56,9 +62,9 @@ ainsi que les dépendances :
 </dependencies>
 ```
 
-## Des exemples ou scenario
+### Des exemples ou scenario
 
-Ajoutez un fichier `src/test/resources/fr/univlille/iut/info/r402/CasSimples.en.feature` avec ce contenu :
+Créez un fichier `src/test/resources/fr/univlille/iut/info/r402/BUT.en.feature` et ajoutez-y ce contenu :
 
 ```gherkin
 # language: en
@@ -75,13 +81,18 @@ Feature: Ma première fonctionalité :
     Then son UE 1 du Semestre 1 est validée
 ```
 
-En Gherkin, une "Feature" (Fonctionalité en français) correspond à une histoire utilisateur dans le monde de l'agilité.
+En Gherkin, une "**Feature**" (Fonctionalité en français) correspond à une histoire utilisateur dans le monde de l'agilité.
+
 On retrouve donc, un titre : `Ma première fonctionalité` et la description de l'histoire utilisateur :
+- **Qui** : en tant que 
+- **Quoi** : je fais
+- **Pourquoi** : afin de
 
-> En tant que **Qui** je fais **Quoi** afin de **Pourquoi**.
-
-Une Feature est illustré par plusieurs exemples, les "Scenario".
-Le "Scenario" est lui-même découpé en 3 étapes : "Given", "When" et "Then".
+1. Une Feature est illustré par plusieurs exemples, les "**Scenari**". 
+1. Un "**Scenario**" est lui-même découpé en 3 étapes : 
+    1. "**Given**"
+    1. "**When**" et 
+    1. "**Then**".
 
 ## Une suite de test pour tout lancer
 
@@ -97,11 +108,11 @@ Ajouter un fichier `src/test/java/fr/univlille/iut/info/r402/RunCucumberTest.jav
 public class RunCucumberTest {
 }
 ```
+### Lien avec votre code
 
-## Lien avec votre code
+#### Créer un fichier java
 
-Ajouter un fichier `src/test/java/fr/univlille/iut/info/r402/JuryStepdefs.java` pour définir
-les étapes Gherkin :
+Créez un fichier `src/test/java/fr/univlille/iut/info/r402/fr.univlille.iut.info.r402.JuryStepdefs.java` et définissez-y les étapes suivantes :
 
 ```java
 public class JuryStepdefs {
@@ -123,13 +134,12 @@ public class JuryStepdefs {
 }
 ```
 
-C'est ce que nous appelons du code de glue, c'est-à-dire du code qui permet de faire le lien entre le Gherkin et vos
-classes métier.
-Le Gherkin ne nous permet pas de définir la façon d'interagir avec notre code, c'est le code de glue qui s'en occupe.
+C'est ce que nous appelons du **code de glue**, c'est-à-dire du code qui permet de faire le lien entre le Gherkin et vos classes métier.
 
-Lancez les tests, ils sont verts, en effet, il n'y a aucun assert dans notre code.
+**Notez que le Gherkin ne nous permet pas de définir la façon d'interagir avec notre code.**
 
-Notez que les `assert` vont dans les méthodes annotés `@Then`
+Lancez les tests, ils doivent être verts.
+En effet, il n'y a aucun assert dans notre code.
 
 ## Codons la glue
 
@@ -176,6 +186,8 @@ Ajouter le scénario suivant dans le fichier `.feature`
 
 ## Gherkin en français
 
+#### Gherkin
+
 Ajoutez un fichier `src/test/resources/fr/univlille/iut/info/r402/BUT.fr.feature` avec ce contenu :
 
 ```gherkin
@@ -199,58 +211,66 @@ Fonctionnalité: Ma première fonctionalité :
     Alors son UE 1 du Semestre 1 n'est pas validée
 ```
 
-# BUT
+# Implémentation des règles pour valider son année de BUT
 
 Écrire et implémenter toutes les règles de validation du BUT en TDD avec les tests rédigés en Gherkin.
 
+## Règlementation
+
 Le journal officiel présente les conditions de validation du BUT de la façon suivante :
 
-### 4.3 Conditions de validation
+### **4.3 Conditions de validation**
 
-- Le bachelor universitaire de technologie s'obtient soit par acquisition de chaque unité d'enseignement constitutive, soit par application des modalités de compensation. 
-- Le bachelor universitaire de technologie obtenu par l'une ou l'autre voie confère la totalité des 180 crédits européens. 
-- Une unité d'enseignement est définitivement acquise et capitalisable dès lors que la moyenne obtenue à l’ensemble « pôle ressources » et « SAÉ » est égale ou supérieure à 10. 
-- L'acquisition de l'unité d'enseignement emporte l'acquisition des crédits européens correspondants. 
-- À l'intérieur de chaque unité d'enseignement, le poids relatif des éléments constitutifs, soit des pôles «ressources » et « SAÉ », varie dans un rapport de 40 à 60%. En troisième année ce rapport peut toutefois être apprécié sur l’ensemble des deux unités d’enseignement d’une même compétence.
+    Le bachelor universitaire de technologie s'obtient soit par acquisition de chaque unité d'enseignement constitutive, soit par application des modalités decompensation. 
 
-- La validation des deux UE du niveau d’une compétence emporte la validation de l’ensemble des UE du niveau inférieur de cette même compétence.
+    Le bachelor universitaire de technologie obtenu par l'une ou l'autre voie confère la totalité des 180 crédits européens. 
 
+    Une unité d'enseignement est définitivement acquise et capitalisable dès lors que la moyenne obtenue à l’ensemble « pôle ressources » et « SAÉ » est égale ou supérieure à 10. 
 
-### 4.4 Compensation
-- La compensation s’effectue au sein de chaque unité d’enseignement ainsi qu’au sein de chaque regroupement cohérent d’UE. 
+    L'acquisition de l'unité d'enseignement emporte l'acquisition des crédits européens correspondants. 
 
-- Seules les UE se référant à un même niveau d’une même compétence finale peuvent ensemble constituer un regroupement cohérent. 
-- Des UE se référant à des niveaux de compétence finales différents ou
-à des compétences finales différentes ne peuvent pas appartenir à un même
-regroupement cohérent. Aucune UE ne peut appartenir à plus d’un regroupement cohérent. 
-- Au sein de chaque regroupement cohérent d’UE, la compensation est intégrale. Si une UE n’a pas été acquise en raison d’une moyenne inférieure à 10, cette UE sera acquise par compensation si et seulement si l’étudiant a obtenu la moyenne au regroupement cohérent auquel l’UE appartient.
+    À l'intérieur de chaque unité d'enseignement, le poids relatif des éléments constitutifs, soit des pôles «ressources » et « SAÉ », varie dans un rapport de 40 à 60%. En troisième année ce rapport peut toutefois être apprécié sur l’ensemble des deux unités d’enseignement d’une même compétence.
 
-### 4.5 Règles de progression
+    La validation des deux UE du niveau d’une compétence emporte la validation de l’ensemble des UE du niveau inférieur de cette même compétence.
 
-- La poursuite d'études dans un semestre pair d’une même année est de droit pour tout étudiant. 
+### **4.4 Compensation**
+    La compensation s’effectue au sein de chaque unité d’enseignement ainsi qu’au sein de chaque regroupement cohérent d’UE. 
 
-- La poursuite d’études dans un semestre impair est possible si et
-seulement si l’étudiant a obtenu : la moyenne à plus de la moitié des
-regroupements cohérents d’UE ; et une moyenne égale ou supérieure à 8 sur 20 àchaque regroupement cohérent d’UE. 
-- La poursuite d'études dans le semestre 5
-nécessite de plus la validation de toutes les UE des semestres 1 et 2 dans les conditions de validation des points 4.3 et 4.4, ou par décision de jury.
-- Durant la totalité du cursus conduisant au bachelor universitaire de
-technologie, l'étudiant peut être autorisé à redoubler une seule fois chaque
-semestre dans la limite de 4 redoublements. 
-- Le directeur de l'IUT peut autoriser un redoublement supplémentaire en cas de force majeure dûment
-justifiée et appréciée par ses soins. 
-- Tout refus d'autorisation de redoubler est pris après avoir entendu l'étudiant à sa demande. 
-Il doit être motivé et assorti de conseils d'orientation.
+    Seules les UE se référant à un même niveau d’une même compétence finale peuvent ensemble constituer un regroupement cohérent. 
 
-### 4.6 Jury
+    Des UE se référant à des niveaux de compétence finales différents ou
+    à des compétences finales différentes ne peuvent pas appartenir à un même
+    regroupement cohérent. Aucune UE ne peut appartenir à plus d’un regroupement cohérent. 
 
-- Le jury présidé par le directeur de l’IUT délibère souverainement à partir del'ensemble des résultats obtenus par l'étudiant. 
+    Au sein de chaque regroupement cohérent d’UE, la compensation est intégrale. Si une UE n’a pas été acquise en raison d’une moyenne inférieure à 10, cette UE sera acquise par compensation si et seulement si l’étudiant a obtenu la moyenne au regroupement cohérent auquel l’UE appartient.
 
-- Il se réunit chaque semestre pour se prononcer sur la progression des étudiants, la validation des unités d’enseignement, l’attribution du diplôme universitaire de technologie au terme de l’acquisition des 120 premiers crédits européens du cursus et l’attribution de la licence professionnelle « bachelor universitaire de technologie ».
+### **4.5 Règles de progression**
+    La poursuite d'études dans un semestre pair d’une même année est de droit pour tout étudiant. 
 
+    La poursuite d’études dans un semestre impair est possible si et
+    seulement si l’étudiant a obtenu : la moyenne à plus de la moitié des
+    regroupements cohérents d’UE ; et une moyenne égale ou supérieure à 8 sur 20 àchaque regroupement cohérent d’UE. 
+
+    La poursuite d'études dans le semestre 5
+    nécessite de plus la validation de toutes les UE des semestres 1 et 2 dans les conditions de validation des points 4.3 et 4.4, ou par décision de jury.
+
+    Durant la totalité du cursus conduisant au bachelor universitaire de
+    technologie, l'étudiant peut être autorisé à redoubler une seule fois chaque
+    semestre dans la limite de 4 redoublements. 
+
+    Le directeur de l'IUT peut autoriser un redoublement supplémentaire en cas de force majeure dûment
+    justifiée et appréciée par ses soins. 
+
+    Tout refus d'autorisation de redoubler est pris après avoir entendu l'étudiant à sa demande. 
+    Il doit être motivé et assorti de conseils d'orientation.
+
+### **4.6 Jury**
+    Le jury présidé par le directeur de l’IUT délibère souverainement à partir del'ensemble des résultats obtenus par l'étudiant. 
+
+    Il se réunit chaque semestre pour se prononcer sur la progression des étudiants, la validation des unités d’enseignement, l’attribution du diplôme universitaire de technologie au terme de l’acquisition des 120 premiers crédits européens du cursus et l’attribution de la licence professionnelle « bachelor universitaire de technologie ».
 
 ### Références 
-Les textes de références étant :
+Les textes de références étants :
 
 * https://www.enseignementsup-recherche.gouv.fr/fr/bo/21/Special4/ESRS2114777A.htm
 * https://cache.media.education.gouv.fr/file/SP4-MESRI-26-5-2022/10/0/spe617_annexe1_1426100.pdf
