@@ -19,35 +19,46 @@ Dans le [TP2](../tp2/) nous avons testé la dernière option, dans ce TP nous al
 
 ## Ajout de la dépendance
 
-Dans le fichier `pom.xml` ajouter la dépendance vers cucumber.
+Dans le fichier `pom.xml` ajouter le gestionaire de dépendances vers cucumber.
 
 ```xml
-<!-- Cucumber -->
-<dependency>
-    <groupId>io.cucumber</groupId>
-    <artifactId>cucumber-java</artifactId>
-    <version>7.11.1</version>
-    <scope>test</scope>
-</dependency>
-<!-- JUnit 5 integration -->
-<dependency>
-    <groupId>io.cucumber</groupId>
-    <artifactId>cucumber-junit-platform-engine</artifactId>
-    <version>7.11.1</version>
-    <scope>test</scope>
-</dependency>
-<!-- JUnit 5 runner -->
-<dependency>
-    <groupId>org.junit.platform</groupId>
-    <artifactId>junit-platform-suite</artifactId>
-    <version>1.9.2</version>
-    <scope>test</scope>
-</dependency>
+
+<dependencyManagement>
+    ...
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-bom</artifactId>
+        <version>7.11.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+    </dependency>
+    ...
+</dependencyManagement>
+```
+
+ainsi que les dépendances :
+
+```xml
+
+<dependencies>
+    ...
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-java</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit-platform-engine</artifactId>
+        <scope>test</scope>
+    </dependency>
+    ...
+</dependencies>
 ```
 
 ## Des exemples ou scenario
 
-Ajoutez un fichier `src/test/resources/fr/univlille/iut/info/r402/BUT.en.feature` avec ce contenu :
+Ajoutez un fichier `src/test/resources/fr/univlille/iut/info/r402/CasSimples.en.feature` avec ce contenu :
 
 ```gherkin
 # language: en
@@ -61,7 +72,7 @@ Feature: Ma première fonctionalité :
     Given un élève
     And son dossier présente une moyenne de 12 dans l'UE 1 au Semestre 1
     When il passe en jury de Semestre 1
-    Then son UE 1 est validée
+    Then son UE 1 du Semestre 1 est validée
 ```
 
 En Gherkin, une "Feature" (Fonctionalité en français) correspond à une histoire utilisateur dans le monde de l'agilité.
@@ -69,45 +80,101 @@ On retrouve donc, un titre : `Ma première fonctionalité` et la description de 
 
 > En tant que **Qui** je fais **Quoi** afin de **Pourquoi**.
 
-Une Feature est illustré par plusieurs exemples, les "Scenario". Le "Scenario" est lui-même découpé en 3 étapes : "
-Given", "When" et "Then".
+Une Feature est illustré par plusieurs exemples, les "Scenario".
+Le "Scenario" est lui-même découpé en 3 étapes : "Given", "When" et "Then".
+
+## Une suite de test pour tout lancer
+
+Ajouter un fichier `src/test/java/fr/univlille/iut/info/r402/RunCucumberTest.java` pour lancer la suite de tests :
+
+```java
+
+@Suite
+@IncludeEngines("cucumber")
+@SelectClasspathResource("fr/univlille/iut/info/r402")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.univlille.iut.info.r402")
+public class RunCucumberTest {
+}
+```
 
 ## Lien avec votre code
 
-Ajouter un fichier `src/test/java/fr/univlille/iut/info/r402/fr.univlille.iut.info.r402.JuryStepdefs.java` pour définir
-les étapes :
+Ajouter un fichier `src/test/java/fr/univlille/iut/info/r402/JuryStepdefs.java` pour définir
+les étapes Gherkin :
 
 ```java
 public class JuryStepdefs {
     @Given("^un élève")
-    public void unÉlève() {
+    public void unEleve() {
     }
 
     @And("son dossier présente une moyenne de {int} dans l'UE {int} au Semestre {int}")
-    public void sonDossierPrésenteUneMoyenneDeDansLUEAuSemestre(int evaluation, int UEId, int SemestreId) {
+    public void sonDossierPresenteUneMoyenneDeDansLUEAuSemestre(int evaluation, int UEId, int semestreId) {
     }
 
     @When("^il passe en jury de Semestre (\\d+)$")
-    public void ilPasseEnJuryDeS(int SemestreId) {
+    public void ilPasseEnJuryDeSemestre(int SemestreId) {
     }
 
-    @Then("^son UE (\\d+) est validée$")
-    public void sonUEEstValidée(int UEId) {
+    @Then("son UE {int} du Semestre {int} est validée")
+    public void sonUEDuSemestreEstValidee(int UEid, int semestreID) {
     }
 }
 ```
 
 C'est ce que nous appelons du code de glue, c'est-à-dire du code qui permet de faire le lien entre le Gherkin et vos
 classes métier.
-Notez que le Gherkin ne nous permet pas de définir la façon d'interagir avec notre code.
+Le Gherkin ne nous permet pas de définir la façon d'interagir avec notre code, c'est le code de glue qui s'en occupe.
 
-Lancez les tests, ils doivent être verts.
-
-Écrivez le code de glue, ajoutez les appels aux classes présentes dans `src/main/java` dans la classe `JuryStepdefs`
+Lancez les tests, ils sont verts, en effet, il n'y a aucun assert dans notre code.
 
 Notez que les `assert` vont dans les méthodes annotés `@Then`
 
-Faire passer ce premier scénario au vert.
+## Codons la glue
+
+Dans la méthode `sonUEDuSemestreEstValidee` nous nous attendons à avoir quelques chose qui raconte que :
+
+* pour l'élève défini en première étape,
+* en allant rechercher son semestre 1
+* puis l'UE 1
+* on peut voir que l'UE 1 est Validée
+
+Ce qui pourrait s'écrire en java comme ceci :
+
+```java
+    assertEquals(Validee, eleve.getUEForSemestre(UEid, semestreID).getAcquisition());
+```
+
+Sauf que l'élève n'existe pas, on peut donc l'ajouter dans l'étape `unEleve()` :
+
+```java
+    eleve = new Etudiant();
+```
+
+De la même façon, l'étape `sonDossierPresenteUneMoyenneDeDansLUEAuSemestre()` va créer une UE avec la bonne moyenne,
+l'ajouter au semestre qui va lui-même être rattaché à l'élève.
+
+L'étape `ilPasseEnJuryDeSemestre()` va appeler la méthode `deliberation` du jury puis mettre à jour les UEs concernées.
+
+Finir le code de glue et l'implémentation minimum pour faire passer ce premier test au vert.
+
+## Nouveau test
+
+Ajouter le scénario suivant dans le fichier `.feature`
+
+```gherkin
+  Scenario: Un mauvais élève
+    Given un élève
+    And son dossier présente une moyenne de 8 dans l'UE 1 au Semestre 1
+    When il passe en jury de Semestre 1
+    Then son UE 1 du Semestre 1 n'est pas validée
+```
+
+* Ajouter la définition d'étape cucumber correspondante
+* Le faire passer au vert.
+
+## Gherkin en français
 
 Ajoutez un fichier `src/test/resources/fr/univlille/iut/info/r402/BUT.fr.feature` avec ce contenu :
 
@@ -123,13 +190,18 @@ Fonctionnalité: Ma première fonctionalité :
     Étant donné un élève
     Et que son dossier présente une moyenne de 12 dans l'UE 1 au Semestre 1
     Quand il passe en jury de Semestre 1
-    Alors son UE 1 est validée
+    Alors son UE 1 du Semestre 1 est validée
+
+  Scénario: Un mauvais élève
+    Étant donné un élève
+    Et que son dossier présente une moyenne de 8 dans l'UE 1 au Semestre 1
+    Quand il passe en jury de Semestre 1
+    Alors son UE 1 du Semestre 1 n'est pas validée
 ```
 
 # BUT
 
 Écrire et implémenter toutes les règles de validation du BUT en TDD avec les tests rédigés en Gherkin.
-
 
 Le journal officiel présente les conditions de validation du BUT de la façon suivante :
 
@@ -186,7 +258,7 @@ d’enseignement, l’attribution du diplôme universitaire de technologie au te
 de l’acquisition des 120 premiers crédits européens du cursus et l’attribution
 de la licence professionnelle « bachelor universitaire de technologie ».
 
-Les textes de références étants :
+Les textes de références sont :
 
 * https://www.enseignementsup-recherche.gouv.fr/fr/bo/21/Special4/ESRS2114777A.htm
 * https://cache.media.education.gouv.fr/file/SP4-MESRI-26-5-2022/10/0/spe617_annexe1_1426100.pdf
