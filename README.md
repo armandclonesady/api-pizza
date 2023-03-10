@@ -64,7 +64,7 @@ ainsi que les dépendances :
 
 ### Des exemples ou scenario
 
-Créez un fichier `src/test/resources/fr/univlille/iut/info/r402/BUT.en.feature` et ajoutez-y ce contenu :
+Créez un fichier `src/test/resources/fr/univlille/iut/info/r402/CasSimple.en.feature` et ajoutez-y ce contenu :
 
 ```gherkin
 # language: en
@@ -120,8 +120,8 @@ public class JuryStepdefs {
     public void unEleve() {
     }
 
-    @And("son dossier présente une moyenne de {int} dans l'UE {int} au Semestre {int}")
-    public void sonDossierPresenteUneMoyenneDeDansLUEAuSemestre(int evaluation, int UEId, int semestreId) {
+    @And("son dossier présente une moyenne de {double} dans l'UE {int} au Semestre {int}")
+    public void sonDossierPresenteUneMoyenneDeDansLUEAuSemestre(double evaluation, int UEId, int semestreId) {
     }
 
     @When("^il passe en jury de Semestre (\\d+)$")
@@ -219,7 +219,7 @@ Fonctionnalité: Ma première fonctionalité :
 
 Le journal officiel présente les conditions de validation du BUT de la façon suivante :
 
-### **4.3 Conditions de validation**
+### 4.3 Conditions de validation
 
 ```txt
 Le bachelor universitaire de technologie s'obtient soit par acquisition de chaque unité d'enseignement constitutive, soit par application des modalités decompensation. 
@@ -235,7 +235,7 @@ L'acquisition de l'unité d'enseignement emporte l'acquisition des crédits euro
 La validation des deux UE du niveau d’une compétence emporte la validation de l’ensemble des UE du niveau inférieur de cette même compétence.
 ```
 
-### **4.4 Compensation**
+### 4.4 Compensation
 ```txt
 La compensation s’effectue au sein de chaque unité d’enseignement ainsi qu’au sein de chaque regroupement cohérent d’UE. 
 
@@ -248,7 +248,7 @@ regroupement cohérent. Aucune UE ne peut appartenir à plus d’un regroupemen
 Au sein de chaque regroupement cohérent d’UE, la compensation est intégrale. Si une UE n’a pas été acquise en raison d’une moyenne inférieure à 10, cette UE sera acquise par compensation si et seulement si l’étudiant a obtenu la moyenne au regroupement cohérent auquel l’UE appartient.
 ```
 
-### **4.5 Règles de progression**
+### 4.5 Règles de progression
 ```txt
 La poursuite d'études dans un semestre pair d’une même année est de droit pour tout étudiant. 
 
@@ -270,7 +270,7 @@ Tout refus d'autorisation de redoubler est pris après avoir entendu l'étudiant
 Il doit être motivé et assorti de conseils d'orientation.
 ```
 
-### **4.6 Jury**
+### 4.6 Jury
 ```txt
 Le jury présidé par le directeur de l’IUT délibère souverainement à partir del'ensemble des résultats obtenus par l'étudiant. 
 
