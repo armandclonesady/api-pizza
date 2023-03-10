@@ -221,53 +221,61 @@ Le journal officiel présente les conditions de validation du BUT de la façon s
 
 ### **4.3 Conditions de validation**
 
-    Le bachelor universitaire de technologie s'obtient soit par acquisition de chaque unité d'enseignement constitutive, soit par application des modalités decompensation. 
+```txt
+Le bachelor universitaire de technologie s'obtient soit par acquisition de chaque unité d'enseignement constitutive, soit par application des modalités decompensation. 
 
-    Le bachelor universitaire de technologie obtenu par l'une ou l'autre voie confère la totalité des 180 crédits européens. 
+Le bachelor universitaire de technologie obtenu par l'une ou l'autre voie confère la totalité des 180 crédits européens. 
 
-    Une unité d'enseignement est définitivement acquise et capitalisable dès lors que la moyenne obtenue à l’ensemble « pôle ressources » et « SAÉ » est égale ou supérieure à 10. 
+Une unité d'enseignement est définitivement acquise et capitalisable dès lors que la moyenne obtenue à l’ensemble « pôle ressources » et « SAÉ » est égale ou supérieure à 10. 
 
-    L'acquisition de l'unité d'enseignement emporte l'acquisition des crédits européens correspondants. 
+L'acquisition de l'unité d'enseignement emporte l'acquisition des crédits européens correspondants. 
 
-    À l'intérieur de chaque unité d'enseignement, le poids relatif des éléments constitutifs, soit des pôles «ressources » et « SAÉ », varie dans un rapport de 40 à 60%. En troisième année ce rapport peut toutefois être apprécié sur l’ensemble des deux unités d’enseignement d’une même compétence.
+À l'intérieur de chaque unité d'enseignement, le poids relatif des éléments constitutifs, soit des pôles «ressources » et « SAÉ », varie dans un rapport de 40 à 60%. En troisième année ce rapport peut toutefois être apprécié sur l’ensemble des deux unités d’enseignement d’une même compétence.
 
-    La validation des deux UE du niveau d’une compétence emporte la validation de l’ensemble des UE du niveau inférieur de cette même compétence.
+La validation des deux UE du niveau d’une compétence emporte la validation de l’ensemble des UE du niveau inférieur de cette même compétence.
+```
 
 ### **4.4 Compensation**
-    La compensation s’effectue au sein de chaque unité d’enseignement ainsi qu’au sein de chaque regroupement cohérent d’UE. 
+```txt
+La compensation s’effectue au sein de chaque unité d’enseignement ainsi qu’au sein de chaque regroupement cohérent d’UE. 
 
-    Seules les UE se référant à un même niveau d’une même compétence finale peuvent ensemble constituer un regroupement cohérent. 
+Seules les UE se référant à un même niveau d’une même compétence finale peuvent ensemble constituer un regroupement cohérent. 
 
-    Des UE se référant à des niveaux de compétence finales différents ou
-    à des compétences finales différentes ne peuvent pas appartenir à un même
-    regroupement cohérent. Aucune UE ne peut appartenir à plus d’un regroupement cohérent. 
+Des UE se référant à des niveaux de compétence finales différents ou
+à des compétences finales différentes ne peuvent pas appartenir à un même
+regroupement cohérent. Aucune UE ne peut appartenir à plus d’un regroupement cohérent. 
 
-    Au sein de chaque regroupement cohérent d’UE, la compensation est intégrale. Si une UE n’a pas été acquise en raison d’une moyenne inférieure à 10, cette UE sera acquise par compensation si et seulement si l’étudiant a obtenu la moyenne au regroupement cohérent auquel l’UE appartient.
+Au sein de chaque regroupement cohérent d’UE, la compensation est intégrale. Si une UE n’a pas été acquise en raison d’une moyenne inférieure à 10, cette UE sera acquise par compensation si et seulement si l’étudiant a obtenu la moyenne au regroupement cohérent auquel l’UE appartient.
+```
 
 ### **4.5 Règles de progression**
-    La poursuite d'études dans un semestre pair d’une même année est de droit pour tout étudiant. 
+```txt
+La poursuite d'études dans un semestre pair d’une même année est de droit pour tout étudiant. 
 
-    La poursuite d’études dans un semestre impair est possible si et
-    seulement si l’étudiant a obtenu : la moyenne à plus de la moitié des
-    regroupements cohérents d’UE ; et une moyenne égale ou supérieure à 8 sur 20 àchaque regroupement cohérent d’UE. 
+La poursuite d’études dans un semestre impair est possible si et
+seulement si l’étudiant a obtenu : la moyenne à plus de la moitié des
+regroupements cohérents d’UE ; et une moyenne égale ou supérieure à 8 sur 20 àchaque regroupement cohérent d’UE. 
 
-    La poursuite d'études dans le semestre 5
-    nécessite de plus la validation de toutes les UE des semestres 1 et 2 dans les conditions de validation des points 4.3 et 4.4, ou par décision de jury.
+La poursuite d'études dans le semestre 5
+nécessite de plus la validation de toutes les UE des semestres 1 et 2 dans les conditions de validation des points 4.3 et 4.4, ou par décision de jury.
 
-    Durant la totalité du cursus conduisant au bachelor universitaire de
-    technologie, l'étudiant peut être autorisé à redoubler une seule fois chaque
-    semestre dans la limite de 4 redoublements. 
+Durant la totalité du cursus conduisant au bachelor universitaire de
+technologie, l'étudiant peut être autorisé à redoubler une seule fois chaque
+semestre dans la limite de 4 redoublements. 
 
-    Le directeur de l'IUT peut autoriser un redoublement supplémentaire en cas de force majeure dûment
-    justifiée et appréciée par ses soins. 
+Le directeur de l'IUT peut autoriser un redoublement supplémentaire en cas de force majeure dûment
+justifiée et appréciée par ses soins. 
 
-    Tout refus d'autorisation de redoubler est pris après avoir entendu l'étudiant à sa demande. 
-    Il doit être motivé et assorti de conseils d'orientation.
+Tout refus d'autorisation de redoubler est pris après avoir entendu l'étudiant à sa demande. 
+Il doit être motivé et assorti de conseils d'orientation.
+```
 
 ### **4.6 Jury**
-    Le jury présidé par le directeur de l’IUT délibère souverainement à partir del'ensemble des résultats obtenus par l'étudiant. 
+```txt
+Le jury présidé par le directeur de l’IUT délibère souverainement à partir del'ensemble des résultats obtenus par l'étudiant. 
 
-    Il se réunit chaque semestre pour se prononcer sur la progression des étudiants, la validation des unités d’enseignement, l’attribution du diplôme universitaire de technologie au terme de l’acquisition des 120 premiers crédits européens du cursus et l’attribution de la licence professionnelle « bachelor universitaire de technologie ».
+Il se réunit chaque semestre pour se prononcer sur la progression des étudiants, la validation des unités d’enseignement, l’attribution du diplôme universitaire de technologie au terme de l’acquisition des 120 premiers crédits européens du cursus et l’attribution de la licence professionnelle « bachelor universitaire de technologie ».
+```
 
 ### Références 
 Les textes de références étants :
