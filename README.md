@@ -188,7 +188,7 @@ Ajouter le scénario suivant dans le fichier `.feature`
 
 #### Gherkin
 
-Ajoutez un fichier `src/test/resources/fr/univlille/iut/info/r402/BUT.fr.feature` avec ce contenu :
+Ajoutez un fichier `src/test/resources/fr/univlille/iut/info/r402/CasSimple.fr.feature` avec ce contenu :
 
 ```gherkin
 # language: fr
