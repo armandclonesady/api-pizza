@@ -3,7 +3,7 @@ package fr.univlille.iut.info.r402;
 public class UniteEnseignement {
     private final double note;
     private int id = 0;
-    private UEAcquisition acquisition;
+    private UEAcquisition acquisition = UEAcquisition.NonValidee;
 
     public UniteEnseignement(int id, double note) {
         this.id = id;

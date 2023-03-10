@@ -92,8 +92,8 @@ Ajouter un fichier `src/test/java/fr/univlille/iut/info/r402/RunCucumberTest.jav
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("fr/univlille/iut/info/r402")
-@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "fr.univlille.iut.info.r402")
+@ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME, value = "pretty")
+@ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME, value = "fr.univlille.iut.info.r402")
 public class RunCucumberTest {
 }
 ```
