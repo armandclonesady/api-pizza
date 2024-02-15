@@ -1,4 +1,4 @@
-# TP 3 - Qualité de développement
+# TP - Qualité de développement
 
 ## Documentation à partir des tests
 
@@ -17,9 +17,7 @@ Il existe différentes façons d'utiliser les tests pour documenter un projet.·
 * Utiliser du **Gherkin pour décrire les scénarios** de tests
 * **Générer des fichiers structurés** de documentation depuis les tests
 
-### Retour sur le TP 2
-
-Dans le [TP2](../tp2/) nous avons testé la dernière option, dans ce TP nous allons utiliser du **Gherkin**.
+Dans ce TP nous allons utiliser du **Gherkin** pour produire la documentation executable.
 
 ## Gherkin
 
@@ -70,15 +68,16 @@ Créez un fichier `src/test/resources/fr/univlille/iut/info/r402/CasSimple.en.fe
 # language: en
 # https://cucumber.io/docs/gherkin/reference/
 Feature: Ma première fonctionalité :
-  En tant qu'étudiant,
-  il "suffit" d'avoir la moyenne dans toutes les UE de la formation
-  afin d'avoir son diplome.
+  En tant que joueur
+  je peux préparer une pizza
+  afin de la vendre
 
-  Scenario: Un élève moyen
-    Given un élève
-    And son dossier présente une moyenne de 12 dans l'UE 1 au Semestre 1
-    When il passe en jury de Semestre 1
-    Then son UE 1 du Semestre 1 est validée
+  Scenario: Un pizza reine
+    Given un four
+    And un pizzaiolo
+    And le pizzaiolo prépare une pizza reine
+    When le pizzaiolo met la pizza reine au four
+    Then au bout de 30 ticks d'horloge, la pizza est cuite
 ```
 
 En Gherkin, une "**Feature**" (Fonctionalité en français) correspond à une histoire utilisateur dans le monde de l'agilité.
@@ -112,24 +111,27 @@ public class RunCucumberTest {
 
 #### Créer un fichier java
 
-Créez un fichier `src/test/java/fr/univlille/iut/info/r402/fr.univlille.iut.info.r402.JuryStepdefs.java` et définissez-y les étapes suivantes :
+Créez un fichier `src/test/java/fr/univlille/iut/info/r402/fr.univlille.iut.info.r402.PizzaStepdefs.java` et définissez-y les étapes suivantes :
 
 ```java
-public class JuryStepdefs {
-    @Given("^un élève")
-    public void unEleve() {
+public class PizzaStepdefs {
+    @Given("^un four")
+    public void unFour() {
     }
 
-    @And("son dossier présente une moyenne de {double} dans l'UE {int} au Semestre {int}")
-    public void sonDossierPresenteUneMoyenneDeDansLUEAuSemestre(double evaluation, int UEId, int semestreId) {
+    @And("^un pizzaiolo")
+    public void unPizzaiolo() {
     }
 
-    @When("^il passe en jury de Semestre (\\d+)$")
-    public void ilPasseEnJuryDeSemestre(int SemestreId) {
+    @And("^le pizzaiolo prépare une pizza reine")
+    public void preparerReine() {
+    }
+    @When("^le pizzaiolo met la pizza reine au four$")
+    public void pizzaAuFour() {
     }
 
-    @Then("son UE {int} du Semestre {int} est validée")
-    public void sonUEDuSemestreEstValidee(int UEid, int semestreID) {
+    @Then("au bout de {int} ticks d'horloge, la pizza est cuite")
+    public void pizzaCuite(int ticks) {
     }
 }
 ```
@@ -143,9 +145,7 @@ En effet, il n'y a aucun assert dans notre code.
 
 ## Codons la glue
 
-Dans la méthode `sonUEDuSemestreEstValidee` nous nous attendons à avoir quelques chose qui raconte que :
-
-* pour l'élève défini en première étape,
+Dans la méthode `pizzaCuite` nous nous attendons à avoir quelques chose qui raconte que si l'on interroge 
 * en allant rechercher son semestre 1
 * puis l'UE 1
 * on peut voir que l'UE 1 est Validée
@@ -169,21 +169,6 @@ L'étape `ilPasseEnJuryDeSemestre()` va appeler la méthode `deliberation` du ju
 
 Finir le code de glue et l'implémentation minimum pour faire passer ce premier test au vert.
 
-## Nouveau test
-
-Ajouter le scénario suivant dans le fichier `.feature`
-
-```gherkin
-  Scenario: Un mauvais élève
-    Given un élève
-    And son dossier présente une moyenne de 8 dans l'UE 1 au Semestre 1
-    When il passe en jury de Semestre 1
-    Then son UE 1 du Semestre 1 n'est pas validée
-```
-
-* Ajouter la définition d'étape cucumber correspondante
-* Le faire passer au vert.
-
 ## Gherkin en français
 
 #### Gherkin
@@ -194,92 +179,36 @@ Ajoutez un fichier `src/test/resources/fr/univlille/iut/info/r402/CasSimple.fr.f
 # language: fr
 # https://cucumber.io/docs/gherkin/reference/
 Fonctionnalité: Ma première fonctionalité :
-  En tant qu'étudiant,
-  il "suffit" d'avoir la moyenne dans toutes les UE de la formation
-  afin d'avoir son diplome.
+  En tant que joueur
+  je peux préparer une pizza
+  afin de la vendre
 
-  Scénario: Un élève moyen
-    Étant donné un élève
-    Et que son dossier présente une moyenne de 12 dans l'UE 1 au Semestre 1
-    Quand il passe en jury de Semestre 1
-    Alors son UE 1 du Semestre 1 est validée
-
-  Scénario: Un mauvais élève
-    Étant donné un élève
-    Et que son dossier présente une moyenne de 8 dans l'UE 1 au Semestre 1
-    Quand il passe en jury de Semestre 1
-    Alors son UE 1 du Semestre 1 n'est pas validée
+  Scénario: Un pizza reine
+    Étant donné un four
+    Et un pizzaiolo
+    Et le pizzaiolo prépare une pizza reine
+    Quand le pizzaiolo met la pizza reine au four
+    Alors au bout de 30 ticks d'horloge, la pizza est cuite
 ```
 
-# Implémentation des règles pour valider son année de BUT
+# Le jeu de pizza
 
-Écrire et implémenter toutes les règles de validation du BUT en TDD avec les tests rédigés en Gherkin.
+Ajouter de nouvelles fonctionnalités en ATDD ou BDD. Vous pouvez vérifier le taux de couverture technique en utilisant la commande `mvn install site surefire-report:report` avant d'ouvrir la page `x-www-browser target/site/jacoco/index.html`.
 
-## Règlementation
+Toutes les interactions se ferons au clavier à travers une interface texte avec un prompte comme un shell dans lequel on entrera les commandes d'actions : `cuire pizza reine`, `préparer pizza reine`, `voir four`, etc.
 
-Le journal officiel présente les conditions de validation du BUT de la façon suivante :
+Fonctionnalités à ajouter :
+* Une pizza est cuite au bout de 30s, ajouter une commande pour voir combien il y a de pizza dans le four
+* La capacité du four est limité, il n'est pas possible de mettre plus de 3 pizzas dedans
+* Il faut faire une action pour vendre une pizza cuite, ajouter l'action `vendre`
+* Ajouter le montant de la caisse
+* Une pizza cuite depuis plus de 60s est invendable, ajouter une action mettre à la poubelle
+* maintenant que vous avez des sous, il va falloir acheter les ingrédients, ajouter l'achat des ingrédients de base pour faire vos différentes pizzas, il n'est alors possible de faire une pizza que si les ingrédients sont en stock.
+* Ajouter l'achat d'un four plus grand
+* Ajouter des prix différents en fonction des pizzas, avec des prix différents pour les ingrédients.
+* Ajouter le fait que les ingrédients ne peuvent pas se garder indéfiniment.
+* etc.
 
-### 4.3 Conditions de validation
+# Lancer des traitements en tache de fond
 
-```txt
-Le bachelor universitaire de technologie s'obtient soit par acquisition de chaque unité d'enseignement constitutive, soit par application des modalités decompensation. 
-
-Le bachelor universitaire de technologie obtenu par l'une ou l'autre voie confère la totalité des 180 crédits européens. 
-
-Une unité d'enseignement est définitivement acquise et capitalisable dès lors que la moyenne obtenue à l’ensemble « pôle ressources » et « SAÉ » est égale ou supérieure à 10. 
-
-L'acquisition de l'unité d'enseignement emporte l'acquisition des crédits européens correspondants. 
-
-À l'intérieur de chaque unité d'enseignement, le poids relatif des éléments constitutifs, soit des pôles «ressources » et « SAÉ », varie dans un rapport de 40 à 60%. En troisième année ce rapport peut toutefois être apprécié sur l’ensemble des deux unités d’enseignement d’une même compétence.
-
-La validation des deux UE du niveau d’une compétence emporte la validation de l’ensemble des UE du niveau inférieur de cette même compétence.
-```
-
-### 4.4 Compensation
-```txt
-La compensation s’effectue au sein de chaque unité d’enseignement ainsi qu’au sein de chaque regroupement cohérent d’UE. 
-
-Seules les UE se référant à un même niveau d’une même compétence finale peuvent ensemble constituer un regroupement cohérent. 
-
-Des UE se référant à des niveaux de compétence finales différents ou
-à des compétences finales différentes ne peuvent pas appartenir à un même
-regroupement cohérent. Aucune UE ne peut appartenir à plus d’un regroupement cohérent. 
-
-Au sein de chaque regroupement cohérent d’UE, la compensation est intégrale. Si une UE n’a pas été acquise en raison d’une moyenne inférieure à 10, cette UE sera acquise par compensation si et seulement si l’étudiant a obtenu la moyenne au regroupement cohérent auquel l’UE appartient.
-```
-
-### 4.5 Règles de progression
-```txt
-La poursuite d'études dans un semestre pair d’une même année est de droit pour tout étudiant. 
-
-La poursuite d’études dans un semestre impair est possible si et
-seulement si l’étudiant a obtenu : la moyenne à plus de la moitié des
-regroupements cohérents d’UE ; et une moyenne égale ou supérieure à 8 sur 20 àchaque regroupement cohérent d’UE. 
-
-La poursuite d'études dans le semestre 5
-nécessite de plus la validation de toutes les UE des semestres 1 et 2 dans les conditions de validation des points 4.3 et 4.4, ou par décision de jury.
-
-Durant la totalité du cursus conduisant au bachelor universitaire de
-technologie, l'étudiant peut être autorisé à redoubler une seule fois chaque
-semestre dans la limite de 4 redoublements. 
-
-Le directeur de l'IUT peut autoriser un redoublement supplémentaire en cas de force majeure dûment
-justifiée et appréciée par ses soins. 
-
-Tout refus d'autorisation de redoubler est pris après avoir entendu l'étudiant à sa demande. 
-Il doit être motivé et assorti de conseils d'orientation.
-```
-
-### 4.6 Jury
-```txt
-Le jury présidé par le directeur de l’IUT délibère souverainement à partir del'ensemble des résultats obtenus par l'étudiant. 
-
-Il se réunit chaque semestre pour se prononcer sur la progression des étudiants, la validation des unités d’enseignement, l’attribution du diplôme universitaire de technologie au terme de l’acquisition des 120 premiers crédits européens du cursus et l’attribution de la licence professionnelle « bachelor universitaire de technologie ».
-```
-
-### Références 
-Les textes de références étants :
-
-* https://www.enseignementsup-recherche.gouv.fr/fr/bo/21/Special4/ESRS2114777A.htm
-* https://cache.media.education.gouv.fr/file/SP4-MESRI-26-5-2022/10/0/spe617_annexe1_1426100.pdf
-
+Avec la classe `Timer` et la méthode `scheduleAtFixedRate` il est possible de lancer un traitement à interval régulier. Il existe aussi une classe `CountDownLatch` pour gérer les comptes à rebourg
