@@ -10,10 +10,13 @@ public class Four {
     public Four() {
     }
 
-    public void addPizza(Pizza p) {
+    public boolean addPizza(Pizza p) {
         if (stored < MAX_STORAGE) {
             pizzasInStorage.add(p);
             stored++;
+            return true;
+        } else {
+            return false;
         }
     }
     public void cuire() {
@@ -32,7 +35,19 @@ public class Four {
     }
 
     public Pizza retirerPizza() {
+        stored--;
         return pizzasInStorage.pop();
+    }
+
+    public Pizza retirerPizza(PizzaTypes type) {
+        for (Pizza p : pizzasInStorage) {
+            if (p.type.equals(type)) {
+                pizzasInStorage.remove(p);
+                stored--;
+                return p;
+            }
+        }
+        throw new IllegalStateException("La pizza " + type + " n'est pas dans le four");
     }
 
     public Stack<Pizza> getCurrentlyInStorage() {

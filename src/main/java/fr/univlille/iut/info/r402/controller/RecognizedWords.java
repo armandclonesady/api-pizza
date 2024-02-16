@@ -11,7 +11,8 @@ public enum RecognizedWords {
     PREPARER(2, "preparer", "prep", "prepare"),
     RETIRER(2, "retirer", "remove", "take", "take-out"),
     VOIR(1,"voir", "show", "display", "list", "see"),
-    MAN(0, "help", "man"),
+    HELP(0, "help" , "aide"),
+    MAN(1, "man"),
     EXIT(0, "exit", "quit", "be-a-bitch");
     private final String[] commande;
     private final int nombreDeParametres;
@@ -33,6 +34,16 @@ public enum RecognizedWords {
             }
         }
         return res;
+    }
+
+    static public String getPrimaryCommandWord(String commandWord) {
+        for (RecognizedWords rw: RecognizedWords.values()
+             ) {
+            if (rw.getCommande().contains(commandWord)) {
+                return rw.getCommande().get(0);
+            }
+        }
+        return commandWord;
     }
 
     public int getNombreDeParametres() {

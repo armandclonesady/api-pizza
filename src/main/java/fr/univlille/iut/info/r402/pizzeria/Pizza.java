@@ -33,11 +33,11 @@ public class Pizza {
 
     @Override
     public String toString() {
-        return "Pizza{" +
-                "isCooked=" + isCooked +
-                ", underCooked=" + underCooked +
-                ", timeCooked=" + timeCooked +
-                ", type=" + type +
-                '}';
+        return """
+                %s
+                    isCooked -> %s,
+                    underCooked -> %s,
+                    timeCooked -> %s
+                """.formatted(type, isCooked, underCooked, timeCooked);
     }
 }
